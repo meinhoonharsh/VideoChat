@@ -1,4 +1,3 @@
-   
 @import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
 
@@ -22,59 +21,65 @@
     "Courier New", monospace;
 }
 
-.container {
-	display: grid;
-	grid-template-columns: 7fr 3fr;
-}
-
 .myId {
-	margin-right: 5rem;
-	border-radius: 5px;
-	background: #c9d6ff; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(
-		to right,
-		#e2e2e2,
-		#c9d6ff
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin-right: 5rem;
+  border-radius: 5px;
+  background: #c9d6ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #e2e2e2,
+    #c9d6ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #e2e2e2,
+    #c9d6ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-	padding: 2rem;
-	display: grid;
-	justify-content: center;
-	align-content: center;
+  padding: 2rem;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
 
 .call-button {
-	text-align: center;
-	margin-top: 2rem;
-}
-
-.video-container {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	justify-content: center;
-	align-content: center;
-	margin-top: 10rem;
-	margin-left: 10rem;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .caller {
-	text-align: center;
-	color: #fff;
+  text-align: center;
+  color: #fff;
 }
 
 body {
-	background: linear-gradient(30deg, var(--Navy),var(--LightNavy));
-	min-height:100vh;
+  background: linear-gradient(30deg, var(--Navy), var(--LightNavy));
+  min-height: 100vh;
 }
-.video-app{
-	.header{
-		display:flex;
-		justify-content: center;
-		padding: 0.6em 5%;
-		color:var(--Green);
-		font-size:2em;
-		font-weight: 600;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	}
+.video-app {
+  .header {
+    display: flex;
+    justify-content: center;
+    padding: 0.6em 5%;
+    color: var(--Green);
+    font-size: 2em;
+    font-weight: 600;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 5%;
+    .video-container {
+      display: flex;
+      justify-content: space-around;
+      .video {
+        width: 40%;
+        transition: 0.5s ease;
+        video {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
