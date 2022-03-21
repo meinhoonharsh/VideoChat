@@ -134,7 +134,7 @@ function App() {
               <div>
                 Your ID: {me} &nbsp;
                 <CopyToClipboard text={me}>
-                  <button className="ctc button">C</button>
+                  <button className="ctc button"><i className="fa fa-copy" /></button>
                 </CopyToClipboard>
               </div>
             </div>
@@ -153,10 +153,10 @@ function App() {
                   </button>
                 ) : (
                   <button className="button" onClick={() => callUser(idToCall)} >
-                    Calll
+                    <i className="fa fa-phone" /> Call
                   </button>
                 )}
-                {idToCall}
+                &nbsp;{idToCall}
               </div>
             </div>
           </div>
