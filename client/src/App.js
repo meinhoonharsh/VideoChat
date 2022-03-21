@@ -7,7 +7,8 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./App.scss";
 
-const socket = io.connect("http://localhost:8000");
+// const socket = io.connect("http://localhost:8000");
+const socket = io.connect("https://videochat.meinhoonharsh.repl.co/");
 
 function App() {
   const [me, setMe] = useState("");
@@ -110,7 +111,7 @@ function App() {
   return (
     <>
       <div className="video-app">
-        <h1 className="header">vDeo Chat</h1>
+        <h1 className="header">vDeo Chat- Test01</h1>
         <div className="container">
           <div className="video-container">
             <div className="video">
