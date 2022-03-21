@@ -114,62 +114,50 @@ function App() {
         <div className="container">
           <div className="video-container">
             <div className="video">
-              {stream && (
-                <video
-                  playsInline
-                  muted
-                  ref={myVideo}
-                  autoPlay
-                />
-              )}
+              {stream && <video playsInline muted ref={myVideo} autoPlay />}
             </div>
             {callAccepted && !callEnded ? (
               <div className="video">
-                <video
-                  playsInline
-                  ref={userVideo}
-                  autoPlay
-                />
+                <video playsInline ref={userVideo} autoPlay />
               </div>
             ) : null}
           </div>
-          <div className="myId">
-            <TextField
-              id="filled-basic"
-              label="Name"
-              variant="filled"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{ marginBottom: "20px" }}
-            />
-            <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-              <Button variant="contained" color="primary" startIcon={"Hii"}>
-                Copy ID
-              </Button>
-            </CopyToClipboard>
-
-            <TextField
-              id="filled-basic"
-              label="ID to call"
-              variant="filled"
-              value={idToCall}
-              onChange={(e) => setIdToCall(e.target.value)}
-            />
-            <div className="call-button">
-              {callAccepted && !callEnded ? (
-                <Button variant="contained" color="secondary" onClick={endCall}>
-                  End Call
-                </Button>
-              ) : (
-                <IconButton
-                  color="primary"
-                  aria-label="call"
-                  onClick={() => callUser(idToCall)}
-                >
-                  Calll
-                </IconButton>
-              )}
-              {idToCall}
+          <div className="tools">
+            <div>
+              <input
+                type="text"
+                id="filled-basic"
+                placeholder="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <div>
+                Your ID: {me} &nbsp;
+                <CopyToClipboard text={me}>
+                  <button className="ctc button">C</button>
+                </CopyToClipboard>
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                id="filled-basic"
+                placeholder="ID to call"
+                value={idToCall}
+                onChange={(e) => setIdToCall(e.target.value)}
+              />
+              <div className="call-button">
+                {callAccepted && !callEnded ? (
+                  <button className="button" onClick={endCall} >
+                    End Call
+                  </button>
+                ) : (
+                  <button className="button" onClick={() => callUser(idToCall)} >
+                    Calll
+                  </button>
+                )}
+                {idToCall}
+              </div>
             </div>
           </div>
           <div>
