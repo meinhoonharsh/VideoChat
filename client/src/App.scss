@@ -75,11 +75,26 @@ body {
       justify-content: space-around;
       .video {
         width: 40%;
-        transition: 0.5s ease;
+        transition: 1s ease;
         video {
+          animation: fadeIn 1s ease;
           width: 100%;
+          aspect-ratio: 4/3;
         }
       }
     }
+  }
+}
+
+
+
+@keyframes fadeIn {
+  0%{
+    position:relative;
+    opacity:0;
+  }
+  100%{
+    position: relative;
+    opacity:1;
   }
 }
