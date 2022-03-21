@@ -64,11 +64,17 @@
 }
 
 body {
-	background: #4776e6; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #8e54e9, #4776e6); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(
-		to right,
-		#8e54e9,
-		#4776e6
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(30deg, var(--Navy),var(--LightNavy));
+	min-height:100vh;
+}
+.video-app{
+	.header{
+		display:flex;
+		justify-content: center;
+		padding: 0.6em 5%;
+		color:var(--Green);
+		font-size:2em;
+		font-weight: 600;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
 }
