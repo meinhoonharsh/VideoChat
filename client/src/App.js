@@ -7,8 +7,8 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./App.scss";
 
-// const socket = io.connect("http://localhost:8000");
-const socket = io.connect("https://videochat.meinhoonharsh.repl.co/");
+const socket = io.connect("http://localhost:8000");
+// const socket = io.connect("https://videochat.meinhoonharsh.repl.co/");
 
 function App() {
   const [me, setMe] = useState("");
@@ -115,10 +115,12 @@ function App() {
         <div className="container">
           <div className="video-container">
             <div className="video">
+            <span className="nameholder">Harsh Vishwakarma</span>
               {stream && <video playsInline muted ref={myVideo} autoPlay />}
             </div>
             {callAccepted && !callEnded ? (
               <div className="video">
+                <span></span>
                 <video playsInline ref={userVideo} autoPlay />
               </div>
             ) : null}
