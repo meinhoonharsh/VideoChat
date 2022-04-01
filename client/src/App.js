@@ -112,7 +112,7 @@ function App() {
   return (
     <>
       <div className="video-app">
-        <h1 className="header">vDeo Chat- Test01</h1>
+        <h1 className="header">vDeo Chat</h1>
         <div className="container">
           <div className="video-container">
             <div className="video">
