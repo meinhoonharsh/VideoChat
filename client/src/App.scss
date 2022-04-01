@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   /* font-size: 16px; */
-  font-family:'Courier New', Courier, monospace ;
+  font-family: "Courier New", Courier, monospace;
   box-sizing: border-box;
 }
 
@@ -43,12 +43,23 @@ body {
     .video-container {
       display: flex;
       justify-content: space-around;
-      flex-wrap:wrap;
-      gap:10px;
+      flex-wrap: wrap;
+      gap: 10px;
       .video {
         width: 40%;
-        
+
         transition: 1s ease;
+
+        position: relative;
+        .nameholder {
+          padding: 10px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #0008;
+          color: #fff;
+          z-index: 2;
+        }
         video {
           animation: fadeIn 1s ease;
           width: 100%;
@@ -66,10 +77,9 @@ body {
       display: flex;
       justify-content: space-around;
       & > div {
-        color:#fff;
-        
+        color: #fff;
+
         width: 45%;
-       
       }
       input {
         width: 100%;
@@ -97,20 +107,19 @@ body {
   }
 }
 
-.button{
-    background: var(--Green);
-    color: var(--Navy);
-    font-weight:800;
-    padding: 0.6em;
-    border:none;
-    outline:none;
-    border-radius: 10px;
-    cursor: pointer;
+.button {
+  background: var(--Green);
+  color: var(--Navy);
+  font-weight: 800;
+  padding: 0.6em;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
-
-   .video {
-        width: 95% !important;
-      }
+  .video {
+    width: 95% !important;
+  }
 }
