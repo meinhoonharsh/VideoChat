@@ -54,11 +54,12 @@ body {
         .nameholder {
           padding: 10px;
           position: absolute;
-          bottom: 0;
+          bottom: 5%;
           left: 0;
           background: #0008;
           color: #fff;
           z-index: 2;
+          border-radius: 0 10px 10px 0;
         }
         video {
           animation: fadeIn 1s ease;
