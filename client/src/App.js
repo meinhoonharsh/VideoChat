@@ -15,6 +15,7 @@ function App() {
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
   const [caller, setCaller] = useState("");
+  const [callerName, setCallerName] = useState("");
   const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
   const [idToCall, setIdToCall] = useState("");
@@ -45,7 +46,7 @@ function App() {
       setCaller(data.from);
       setCallerSignal(data.signal);
       setReceivingCall(true);
-      setName(data.name);
+      setCallerName(data.name);
     });
   }, []);
 
@@ -115,12 +116,12 @@ function App() {
         <div className="container">
           <div className="video-container">
             <div className="video">
-            <span className="nameholder">Harsh Vishwakarma</span>
+            <span className="nameholder">{name || me}</span>
               {stream && <video playsInline muted ref={myVideo} autoPlay />}
             </div>
             {callAccepted && !callEnded ? (
               <div className="video">
-                <span></span>
+              <span className="nameholder">{callerName || 'Guest'}</span>
                 <video playsInline ref={userVideo} autoPlay />
               </div>
             ) : null}
