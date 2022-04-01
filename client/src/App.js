@@ -15,7 +15,7 @@ function App() {
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
   const [caller, setCaller] = useState("");
-  const [callerName, setCallerName] = useState("");
+  const [callerName, setCallerName] = useState("Guest");
   const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
   const [idToCall, setIdToCall] = useState("");
@@ -116,12 +116,12 @@ function App() {
         <div className="container">
           <div className="video-container">
             <div className="video">
-            <span className="nameholder">{name || me}</span>
+              <span className="nameholder">{name || me}</span>
               {stream && <video playsInline muted ref={myVideo} autoPlay />}
             </div>
             {callAccepted && !callEnded ? (
               <div className="video">
-              <span className="nameholder">{callerName || 'Guest'}</span>
+                <span className="nameholder">{callerName || "Guest"}</span>
                 <video playsInline ref={userVideo} autoPlay />
               </div>
             ) : null}
@@ -138,7 +138,9 @@ function App() {
               <div>
                 Your ID: {me} &nbsp;
                 <CopyToClipboard text={me}>
-                  <button className="ctc button"><i className="fa fa-copy" /></button>
+                  <button className="ctc button">
+                    <i className="fa fa-copy" />
+                  </button>
                 </CopyToClipboard>
               </div>
             </div>
@@ -152,11 +154,11 @@ function App() {
               />
               <div className="call-button">
                 {callAccepted && !callEnded ? (
-                  <button className="button" onClick={endCall} >
+                  <button className="button" onClick={endCall}>
                     End Call
                   </button>
                 ) : (
-                  <button className="button" onClick={() => callUser(idToCall)} >
+                  <button className="button" onClick={() => callUser(idToCall)}>
                     <i className="fa fa-phone" /> Call
                   </button>
                 )}
@@ -164,20 +166,14 @@ function App() {
               </div>
             </div>
           </div>
-          <div>
-            {receivingCall && !callAccepted ? (
-              <div className="caller">
-                <h1>{name} is calling...</h1>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={answerCall}
-                >
-                  Answer
-                </Button>
-              </div>
-            ) : null}
-          </div>
+          {receivingCall && !callAccepted ? (
+            <div className="caller">
+              <h1>{callerName || 'Guest'} is calling...</h1>
+              <button className="button navybg lg" onClick={answerCall}>
+                Answer
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </>
