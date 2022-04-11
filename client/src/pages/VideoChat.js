@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Peer from "simple-peer";
 import io from "socket.io-client";
-import "./App.scss";
+import "../App.scss";
 
 const socket = io.connect("http://localhost:8000");
 // const socket = io.connect("https://videochat.meinhoonharsh.repl.co/");
@@ -43,6 +43,8 @@ export default function VideoChat() {
         });
 
         socket.on("callUser", (data) => {
+
+            console.log("socket-on callUser", data);
             setCaller(data.from);
             setCallerSignal(data.signal);
             setReceivingCall(true);
@@ -51,6 +53,8 @@ export default function VideoChat() {
     }, []);
 
     const callUser = (id) => {
+
+        console.log("callUser function called");
         const peer = new Peer({
             initiator: true,
             trickle: false,
@@ -58,6 +62,8 @@ export default function VideoChat() {
         });
 
         peer.on("signal", (data) => {
+            console.log("peer-on - signal", data);
+
             socket.emit("callUser", {
                 signalData: data,
                 to: id,
@@ -67,20 +73,25 @@ export default function VideoChat() {
         });
 
         peer.on("stream", (stream) => {
+            console.log("peer-on - stream", stream);
             if (userVideo.current) {
                 userVideo.current.srcObject = stream;
             }
         });
 
         socket.on("callAccepted", (signal) => {
+            console.log("socket-on callAccepted ", signal);
             setCallAccepted(true);
             peer.signal(signal);
         });
 
+
+        console.log("Peer object created", peer);
         connectionRef.current = peer;
     };
 
     const answerCall = () => {
+        console.log("answerCall function called");
         const peer = new Peer({
             initiator: false,
             trickle: false,
@@ -88,6 +99,7 @@ export default function VideoChat() {
         });
 
         peer.on("signal", (data) => {
+            console.log("peer-on - signal", data);
             socket.emit("answerCall", {
                 signalData: data,
                 to: caller
@@ -95,6 +107,7 @@ export default function VideoChat() {
         });
 
         peer.on("stream", (stream) => {
+            console.log("peer-on - stream", stream);
             if (userVideo.current) {
                 userVideo.current.srcObject = stream;
             }
@@ -102,6 +115,7 @@ export default function VideoChat() {
 
         peer.signal(callerSignal);
         setCallAccepted(true);
+        console.log("Peer object created", peer);
         connectionRef.current = peer;
     };
 
