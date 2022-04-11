@@ -26,6 +26,7 @@ body {
   background: linear-gradient(30deg, var(--Navy), var(--LightNavy));
   min-height: 100vh;
 }
+
 .video-app {
   .header {
     display: flex;
@@ -36,21 +37,25 @@ body {
     font-weight: 600;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
+
   .container {
     display: flex;
     flex-direction: column;
     padding: 1% 5%;
+
     .video-container {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       gap: 10px;
+
       .video {
         width: 40%;
 
         transition: 1s ease;
 
         position: relative;
+
         .nameholder {
           padding: 10px;
           position: absolute;
@@ -61,6 +66,7 @@ body {
           z-index: 2;
           border-radius: 0 10px 10px 0;
         }
+
         video {
           animation: fadeIn 1s ease;
           width: 100%;
@@ -68,6 +74,7 @@ body {
         }
       }
     }
+
     .tools {
       background: #fff1;
       border-radius: 10px;
@@ -77,11 +84,13 @@ body {
       max-width: 800px;
       display: flex;
       justify-content: space-around;
-      & > div {
+
+      &>div {
         color: #fff;
 
         width: 45%;
       }
+
       input {
         width: 100%;
         padding: 1em;
@@ -95,16 +104,16 @@ body {
       }
     }
 
-    .caller{
-      position:fixed;
-      left:2%;
-      bottom:5%;
-      width:80%;
-      max-width:500px;
+    .caller {
+      position: fixed;
+      left: 2%;
+      bottom: 5%;
+      width: 80%;
+      max-width: 500px;
       background: #fff6;
       backdrop-filter: blur(5px);
-      padding:20px;
-      border-radius:10px;
+      padding: 20px;
+      border-radius: 10px;
     }
   }
 }
@@ -114,6 +123,7 @@ body {
     position: relative;
     opacity: 0;
   }
+
   100% {
     position: relative;
     opacity: 1;
@@ -130,13 +140,15 @@ body {
   border-radius: 10px;
   cursor: pointer;
 }
-.navybg{
-  background:var(--Navy);
-  color:var(--White);
+
+.navybg {
+  background: var(--Navy);
+  color: var(--White);
 }
-.lg{
-  padding:10px 20px;
-  font-size:1.3em;
+
+.lg {
+  padding: 10px 20px;
+  font-size: 1.3em;
 
 }
 

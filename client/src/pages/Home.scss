@@ -47,6 +47,17 @@
             background: var(--Green);
         }
 
+        p {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--White);
+
+            a {
+                color: var(--Green);
+                text-decoration: none;
+            }
+        }
+
     }
 
 }
