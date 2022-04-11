@@ -1,0 +1,52 @@
+.create-room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+
+    &>div {
+        width: 90%;
+        max-width: 600px;
+        padding: 5%;
+        background: linear-gradient(30deg, var(--LightestNavy), var(--LightNavy));
+        border-radius: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        h2 {
+            font-size: 2em;
+            font-weight: 600;
+            color: var(--White);
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid var(--Navy);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            outline: none;
+            background: #fff1;
+            color: var(--White);
+
+            &::placeholder {
+                color: var(--LightSlate);
+            }
+        }
+
+        button {
+            width: 100%;
+            border: 1px solid var(--Navy);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+            font-weight: 700;
+            background: var(--Green);
+        }
+
+    }
+
+}
