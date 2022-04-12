@@ -8,6 +8,10 @@ const socket = io.connect("http://localhost:8000");
 export default function Space() {
     const [name, setName] = useState("");
 
+    const log = (...args) => {
+        console.log(...args);
+    }
+
     useEffect(() => {
         if (localStorage.name) {
             setName(localStorage.name);
@@ -16,7 +20,7 @@ export default function Space() {
     }, []);
 
     const joinSpace = () => {
-        console.log("joinSpace function called");
+        log("joinSpace function called");
     }
 
     return (
