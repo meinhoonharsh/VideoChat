@@ -8,6 +8,12 @@ const socket = io.connect("http://localhost:8000");
 export default function Space() {
     const [name, setName] = useState("");
 
+    useEffect(() => {
+        if (localStorage.name) {
+            setName(localStorage.name);
+        }
+    }, []);
+
 
     return (
         <>
@@ -19,10 +25,14 @@ export default function Space() {
                         <button onClick={() => {
                             localStorage.setItem("name", name);
                             socket.emit("joinSpace", { name: name });
-                        }
-                        }>Join</button>
+                        }}>Join</button>
                     </div>
                 </div>
+            }
+
+
+            {name &&
+                <div>Video Chat Space</div>
             }
 
         </>
