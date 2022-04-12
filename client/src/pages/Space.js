@@ -11,9 +11,13 @@ export default function Space() {
     useEffect(() => {
         if (localStorage.name) {
             setName(localStorage.name);
+            joinSpace();
         }
     }, []);
 
+    const joinSpace = () => {
+        console.log("joinSpace function called");
+    }
 
     return (
         <>
@@ -25,6 +29,7 @@ export default function Space() {
                         <button onClick={() => {
                             localStorage.setItem("name", name);
                             socket.emit("joinSpace", { name: name });
+                            joinSpace();
                         }}>Join</button>
                     </div>
                 </div>
