@@ -139,10 +139,33 @@ export default function Space() {
                         color: "white"
                     }}
                     >Space- {spaceId}</h2>
-                    {stream && <video playsInline muted ref={myVideo} autoPlay />}
+                    {stream && <Video vidref={myVideo} muted={true} />}
                 </div>
             }
 
         </>
+    )
+}
+
+
+
+const PeerVideo = ({ peer, name }) => {
+    const videoRef = useRef(null);
+    useEffect(() => {
+        if (peer && videoRef.current) {
+            peer.on("stream", stream => {
+                videoRef.current.srcObject = stream;
+            });
+        }
+    }, []);
+    return (
+        <Video ref={videoRef} />
+    )
+
+}
+
+const Video = ({ vidref, muted = false }) => {
+    return (
+        <video playsInline autoPlay ref={vidref} muted={muted} />
     )
 }
