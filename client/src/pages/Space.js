@@ -44,6 +44,26 @@ export default function Space() {
         return peer;
     };
 
+
+    const addPeer = (incomeSignal, userId, stream) => {
+        const peer = new Peer({
+            initiator: false,
+            trickle: false,
+            stream: stream
+        });
+
+        peer.on("signal", (data) => {
+            socket.emit("signalAccepted", { to: userId, id: myId, signal: data, name });
+        });
+
+
+
+        peer.signal(incomingSignal);
+
+        return peer;
+    };
+
+
     useEffect(() => {
 
 
