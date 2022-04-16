@@ -64,6 +64,24 @@ io.on('connection', (socket) => {
     })
 
 
+    socket.on("disconnect", () => {
+        console.log("User disconnected")
+        socket.to(socketToSpace[socket.id]).emit("userLeft", { id: socket.id })
+        socket.leave(socketToSpace[socket.id])
+
+        if (socketToSpace[socket.id]) {
+
+            // Remove user from users array
+            let userIndex = users[socketToSpace[socket.id]].indexOf(socket.id)
+            users[socketToSpace[socket.id]].splice(userIndex, 1)
+
+            // Remove socket from socketToSpace
+            delete socketToSpace[socket.id]
+        }
+        console.log("users:", users)
+        console.log("socketToSpace:", socketToSpace)
+    })
+
 
 
 
