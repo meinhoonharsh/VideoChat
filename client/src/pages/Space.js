@@ -45,7 +45,7 @@ export default function Space() {
     };
 
 
-    const addPeer = (incomeSignal, userId, stream) => {
+    const addPeer = (incomingSignal, userId, stream) => {
         const peer = new Peer({
             initiator: false,
             trickle: false,
