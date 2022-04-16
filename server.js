@@ -69,6 +69,10 @@ io.on('connection', (socket) => {
         io.to(data.to).emit("usercalling", data)
     })
 
+    socket.on("signalAccepted", (data) => {
+        console.log("signalAccepted", data)
+        io.to(data.to).emit("signalAccepted", data)
+    })
 
     socket.on("disconnect", () => {
         console.log("User disconnected")
