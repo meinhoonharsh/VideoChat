@@ -64,6 +64,12 @@ io.on('connection', (socket) => {
     })
 
 
+    socket.on("sendSignal", (data) => {
+        console.log("sendSignal", data)
+        io.to(data.to).emit("usercalling", data)
+    })
+
+
     socket.on("disconnect", () => {
         console.log("User disconnected")
         socket.to(socketToSpace[socket.id]).emit("userLeft", { id: socket.id })
