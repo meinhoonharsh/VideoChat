@@ -124,6 +124,29 @@ export default function Space() {
             setPeers(peers);
         })
 
+        socket.on("usercalling", (data) => {
+            log(data, "is calling you to create Peer");
+
+            const peer = addPeer(data.signal, data.id, stream);
+            peersRef.current.push({ peer, userId: data.id });
+            setPeers([...peers, peer]);
+
+
+
+        });
+
+
+        socket.on("signalAccepted", (data) => {
+
+            log("signalAccepted event called");
+
+            const item = peersRef.current.find(p => p.userId === data.id);
+            if (item) {
+                item.peer.signal(data.signal);
+            }
+        })
+
+
         socket.on("userLeft", (data) => {
             log("userLeft");
             log(data);

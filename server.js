@@ -94,7 +94,7 @@ io.on('connection', (socket) => {
 
     // Called when someone accepts the call for a Peer connection
     socket.on("signalAccepted", (data) => {
-        console.log("signalAccepted", data)
+        // console.log("signalAccepted", data)
         io.to(data.to).emit("signalAccepted", data)
     })
 
