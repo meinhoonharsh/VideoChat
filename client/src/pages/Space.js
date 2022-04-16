@@ -41,6 +41,7 @@ export default function Space() {
             socket.emit("sendSignal", { to: userToSignal, id: myId, signal: data, name });
         });
 
+
         return peer;
     };
 
@@ -82,6 +83,13 @@ export default function Space() {
         }
     }, []);
 
+
+
+
+    useEffect(() => {
+        log("Peers: ", peers)
+    }, [peers])
+
     useEffect(() => {
         if (activeSpace && myId) {
 
@@ -98,7 +106,7 @@ export default function Space() {
     }, [activeSpace, myId]);
 
     const joinSpace = () => {
-        log("joinSpace function called");
+        log("I am joining the space");
         socket.emit("joinSpace", { name, spaceId, id: myId }); // emit joinSpace event to server
         socket.on("joinedSpace", (data) => {
             log("joinedSpace event called");
@@ -106,7 +114,7 @@ export default function Space() {
         })
 
         socket.on("userJoined", (data) => {
-            log("userJoined event called");
+            log("Someone joined the room");
             log(data);
         })
 
@@ -114,8 +122,7 @@ export default function Space() {
             const peers = [];
             users.forEach(user => {
                 if (user !== myId) {
-                    log("Creating peer for user: ", user);
-                    log("My ID: ", myId);
+                    log("I am creating peer for user: ", user);
                     const peer = createPeer(user, myId, stream);
                     peersRef.current.push({ peer, userId: user });
                     peers.push(peer);
@@ -125,7 +132,7 @@ export default function Space() {
         })
 
         socket.on("usercalling", (data) => {
-            log(data, "is calling you to create Peer");
+            log("Someone is calling you to create Peer : ", data);
 
             const peer = addPeer(data.signal, data.id, stream);
             peersRef.current.push({ peer, userId: data.id });
@@ -138,7 +145,7 @@ export default function Space() {
 
         socket.on("signalAccepted", (data) => {
 
-            log("signalAccepted event called");
+            log("Other Peer has Accepted the call");
 
             const item = peersRef.current.find(p => p.userId === data.id);
             if (item) {
@@ -178,6 +185,10 @@ export default function Space() {
                     }}
                     >Space- {spaceId}</h2>
                     {stream && <Video vidref={myVideo} muted={true} />}
+
+                    {peers.map((peer, index) => {
+                        return <PeerVideo key={index} peer={peer} name={name} />
+                    })}
                 </div>
             }
 
@@ -197,7 +208,7 @@ const PeerVideo = ({ peer, name }) => {
         }
     }, []);
     return (
-        <Video ref={videoRef} />
+        <Video vidref={videoRef} />
     )
 
 }
