@@ -15,19 +15,34 @@ const log = (...args) => {
 
 // Creating Space for Group Video Chat
 export default function Space() {
+
     const [activeSpace, setActiveSpace] = useState(null);
     const [name, setName] = useState("");
     const [myId, setMyId] = useState("");
     const myVideo = useRef(null);
-    const [myStream, setMyStream] = useState(null);
+    const [stream, setStream] = useState(null);
     const spaceId = useParams().spaceId;
 
+    const [peers, setPeers] = useState([]);
+    const peersRef = useRef([]);
 
 
 
 
 
+    const createPeer = (userToSignal, myId, stream) => {
+        const peer = new Peer({
+            initiator: true,
+            trickle: false,
+            stream: stream
+        });
 
+        peer.on("signal", (data) => {
+            socket.emit("sendSignal", { to: userToSignal, id: myId, signal: data, name });
+        });
+
+        return peer;
+    };
 
     useEffect(() => {
 
@@ -52,7 +67,7 @@ export default function Space() {
             joinSpace();
 
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-                setMyStream(stream);
+                setStream(stream);
 
                 if (myVideo.current) {
                     myVideo.current.srcObject = stream;
@@ -104,7 +119,7 @@ export default function Space() {
                         color: "white"
                     }}
                     >Space- {spaceId}</h2>
-                    {myStream && <video playsInline muted ref={myVideo} autoPlay />}
+                    {stream && <video playsInline muted ref={myVideo} autoPlay />}
                 </div>
             }
 
