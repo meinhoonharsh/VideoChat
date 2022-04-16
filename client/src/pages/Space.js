@@ -84,7 +84,6 @@ export default function Space() {
 
     useEffect(() => {
         if (activeSpace && myId) {
-            joinSpace();
 
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
                 setStream(stream);
@@ -93,6 +92,8 @@ export default function Space() {
                     myVideo.current.srcObject = stream;
                 }
             });
+
+            joinSpace();
         }
     }, [activeSpace, myId]);
 
@@ -107,6 +108,20 @@ export default function Space() {
         socket.on("userJoined", (data) => {
             log("userJoined event called");
             log(data);
+        })
+
+        socket.on("users", (users) => {
+            const peers = [];
+            users.forEach(user => {
+                if (user !== myId) {
+                    log("Creating peer for user: ", user);
+                    log("My ID: ", myId);
+                    const peer = createPeer(user, myId, stream);
+                    peersRef.current.push({ peer, userId: user });
+                    peers.push(peer);
+                }
+            });
+            setPeers(peers);
         })
 
         socket.on("userLeft", (data) => {
