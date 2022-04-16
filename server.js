@@ -11,8 +11,20 @@ const io = require('socket.io')(server, {
 
 
 const users = {};
-const socketToSpace = {};
+/*
+users = [
+    "spaceId": [
+        socketIds
+    ]
+]
+*/
 
+const socketToSpace = {};
+/*
+socketToSpace = {
+    "socketId": "spaceId"
+}
+*/
 
 io.on('connection', (socket) => {
     socket.emit("me", socket.id)
@@ -30,31 +42,38 @@ io.on('connection', (socket) => {
     // })
 
 
-    // socket.on("callsomeone", (data) => {
-    //     socket.emit("someonecalling", data)
-    // })
 
 
-    // join all users to the same room
+    // Called whenever someone joins the space
     socket.on("joinSpace", (data) => {
+
+        // Joining users socket to space
         socket.join(data.spaceId)
+
+        // Emitting to the space that a user has joined
         socket.to(data.spaceId).emit("userJoined", data)
 
+
+        // Adding user to users object
         if (users[data.spaceId]) {
 
+            // If user already exists in users object
             if (users[data.spaceId].includes(data.id)) {
                 return
             }
+            // If room is already full
             else if (users[data.spaceId].length == 4) {
                 socket.emit("spacefull")
                 return
             }
             users[data.spaceId].push(data.id)
-        } else {
+        }
+        else {
             console.log("Data.id", data.id)
             users[data.spaceId] = [data.id]
         }
 
+        // Adding user to socketToSpace object
         socketToSpace[data.id] = data.spaceId
 
 
@@ -64,16 +83,21 @@ io.on('connection', (socket) => {
     })
 
 
+
+    // Called when someone calls another user to create a Peer connection
     socket.on("sendSignal", (data) => {
         console.log("sendSignal", data)
         io.to(data.to).emit("usercalling", data)
     })
 
+    // Called when someone accepts the call for a Peer connection
     socket.on("signalAccepted", (data) => {
         console.log("signalAccepted", data)
         io.to(data.to).emit("signalAccepted", data)
     })
 
+
+    // Called whenever someone leaves the space
     socket.on("disconnect", () => {
         console.log("User disconnected")
         socket.to(socketToSpace[socket.id]).emit("userLeft", { id: socket.id })
