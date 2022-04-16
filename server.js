@@ -76,6 +76,8 @@ io.on('connection', (socket) => {
         // Adding user to socketToSpace object
         socketToSpace[data.id] = data.spaceId
 
+        socket.emit("users", users[data.spaceId])
+
 
         console.log("users", users)
         console.log("socketToSpace", socketToSpace)
@@ -86,7 +88,7 @@ io.on('connection', (socket) => {
 
     // Called when someone calls another user to create a Peer connection
     socket.on("sendSignal", (data) => {
-        console.log("sendSignal", data)
+        // console.log("sendSignal", data)
         io.to(data.to).emit("usercalling", data)
     })
 
