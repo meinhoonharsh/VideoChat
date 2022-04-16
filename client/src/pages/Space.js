@@ -17,32 +17,49 @@ const log = (...args) => {
 export default function Space() {
     const [activeSpace, setActiveSpace] = useState(null);
     const [name, setName] = useState("");
-    const myId = useRef(null);
-
+    const [myId, setMyId] = useState("");
+    const myVideo = useRef(null);
+    const [myStream, setMyStream] = useState(null);
     const spaceId = useParams().spaceId;
-    log("Space Id: ", spaceId);
+
+
+
+
+
 
 
 
     useEffect(() => {
 
-        socket.on("me", (id) => {
-            myId.current = id;
-            log("My ID is: ", id);
-        });
+
 
 
         if (localStorage.name) {
+
+
+            socket.on("me", (id) => {
+                setMyId(id);
+                log("My ID is: ", id);
+            });
+
             setName(localStorage.name);
             setActiveSpace(true);
         }
     }, []);
 
     useEffect(() => {
-        if (activeSpace) {
+        if (activeSpace && myId) {
             joinSpace();
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+                setMyStream(stream);
+
+                if (myVideo.current) {
+                    myVideo.current.srcObject = stream;
+                }
+            });
         }
-    }, [activeSpace]);
+    }, [activeSpace, myId]);
 
     const joinSpace = () => {
         log("joinSpace function called");
@@ -54,6 +71,11 @@ export default function Space() {
 
         socket.on("userJoined", (data) => {
             log("userJoined event called");
+            log(data);
+        })
+
+        socket.on("userLeft", (data) => {
+            log("userLeft");
             log(data);
         })
 
@@ -75,7 +97,15 @@ export default function Space() {
                     </div>
                 </div>
                 :
-                <div>Video Chat Space</div>
+                <div>
+                    <h2 style={{
+                        textAlign: "center",
+                        marginTop: "20px",
+                        color: "white"
+                    }}
+                    >Space- {spaceId}</h2>
+                    {myStream && <video playsInline muted ref={myVideo} autoPlay />}
+                </div>
             }
 
         </>
