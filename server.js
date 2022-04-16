@@ -9,6 +9,11 @@ const io = require('socket.io')(server, {
     }
 });
 
+
+const users = {};
+const socketToSpace = {};
+
+
 io.on('connection', (socket) => {
     socket.emit("me", socket.id)
 
@@ -33,8 +38,29 @@ io.on('connection', (socket) => {
     // join all users to the same room
     socket.on("joinSpace", (data) => {
         socket.join(data.spaceId)
-        socket.broadcast.emit("userJoined", data)
-        socket.emit("users", io.sockets.adapter.rooms.get(data.spaceId))
+        socket.to(data.spaceId).emit("userJoined", data)
+
+        if (users[data.spaceId]) {
+
+            if (users[data.spaceId].includes(data.id)) {
+                return
+            }
+            else if (users[data.spaceId].length == 4) {
+                socket.emit("spacefull")
+                return
+            }
+            users[data.spaceId].push(data.id)
+        } else {
+            console.log("Data.id", data.id)
+            users[data.spaceId] = [data.id]
+        }
+
+        socketToSpace[data.id] = data.spaceId
+
+
+        console.log("users", users)
+        console.log("socketToSpace", socketToSpace)
+
     })
 
 
